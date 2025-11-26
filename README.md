@@ -2,6 +2,7 @@
 
 A powerful, agentic AI system designed to perform comprehensive investment research. Built with **LangChain v1.0+** and **LangGraph v1.0+**, it orchestrates a team of specialized AI agents to analyze financial data, news sentiment, and risks, culminating in a professional investment memo.
 
+
 ## 🚀 Features
 
 -   **Multi-Agent Architecture**: Uses a supervisor-worker pattern with specialized roles (Router, Data Analyst, News Analyst, Risk Manager, Chief Editor).
@@ -10,7 +11,15 @@ A powerful, agentic AI system designed to perform comprehensive investment resea
 -   **Risk Assessment**: dedicated agent for identifying downside risks and volatility.
 -   **Modern Tech Stack**: Built on the latest LangChain and LangGraph APIs (v1.0+), using `uv` for fast package management.
 
-## 📊 Workflow
+## � Screenshots
+
+![Market Dashboard](assets/market_dashboard.png)
+*Real-time Market Dashboard*
+
+![Investment Report](assets/investment_report.png)
+*AI-Generated Investment Report*
+
+## �📊 Workflow
 
 ```mermaid
 graph TD
@@ -71,6 +80,8 @@ graph TD
 
 ## 🏃‍♂️ Usage
 
+### 1. Command Line Interface (CLI)
+
 Run the assistant with a natural language query:
 
 ```bash
@@ -83,15 +94,37 @@ Or for a single ticker:
 uv run python -m src.main "Analyze TSLA"
 ```
 
+### 2. Web UI (Streamlit)
+
+For an interactive experience, launch the Streamlit web interface:
+
+```bash
+uv run streamlit run ui.py
+```
+
+This will open the UI in your browser (typically at `http://localhost:8501`).
+
+### 3. REST API (FastAPI)
+
+To run the backend API server:
+
+```bash
+uv run uvicorn src.api:app --reload
+```
+
+The API will be available at `http://localhost:8000`. You can access the interactive API docs at `http://localhost:8000/docs`.
+
 ## 📂 Project Structure
 
 ```
 ├── src/
 │   ├── agents/          # Agent definitions (Router, Analysts, Editor)
 │   ├── tools/           # Tool wrappers (yfinance, search)
+│   ├── api.py           # FastAPI backend
 │   ├── graph.py         # LangGraph orchestration logic
-│   ├── main.py          # Entry point
+│   ├── main.py          # CLI Entry point
 │   └── state.py         # Shared agent state definition
+├── ui.py                # Streamlit Web UI
 ├── pyproject.toml       # Project dependencies (managed by uv)
 ├── uv.lock              # Dependency lock file
 └── README.md            # This file

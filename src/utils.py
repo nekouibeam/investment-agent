@@ -17,7 +17,7 @@ def get_llm(temperature=0):
     
     elif provider == "openai":
         if not model_name:
-            model_name = "gpt-4o"
+            model_name = "gpt-5-mini"
         return ChatOpenAI(model=model_name, temperature=temperature)
     
     else:

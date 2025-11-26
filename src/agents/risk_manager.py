@@ -8,24 +8,29 @@ def risk_manager_node(state: AgentState):
     """
     llm = get_llm(temperature=0)
     
-    system_prompt = """You are a Risk Manager for an investment firm.
-    Your job is to assess the downside risks, volatility, and potential tail events for the tickers based on the provided analysis.
+    system_prompt = """You are a Chief Risk Officer at a major investment fund.
+    Your job is to play "Devil's Advocate" and identify the downside risks that others might miss, **specifically regarding the user's question**.
     
     Input:
-    - Data Analysis (Price trends, fundamentals)
-    - News Analysis (Sentiment, events)
+    - User Query: The specific question or hypothesis the user has.
+    - Data Analysis (Valuation, Financials)
+    - News Analysis (Catalysts, Sentiment)
     
-    Output:
-    - Identify 3-5 key risk factors (e.g., high volatility, negative sentiment, regulatory headwinds).
-    - Provide a "Risk Score" (Low, Medium, High) with justification.
-    - Highlight any "Red Flags" that require immediate attention.
+    Output in **Traditional Chinese (繁體中文)**:
+    1. **Stress Test User's Hypothesis (壓力測試用戶假設)**: If the user is asking "Is X a bottleneck?", explore "What if X is NOT a bottleneck?" or "What if X gets worse?".
+    2. **Bear Case Scenario (看空情境)**: Describe a specific scenario where the stock could drop 20%+.
+    3. **Risk Categorization (風險分類)**: Macro, Sector, Company.
+    4. **Risk Score (風險評分)**: Assign a score (1-10) with justification.
     
-    Be conservative and critical.
+    Be conservative. If the stock is "priced for perfection," highlight that as a major risk.
     """
     
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
-        ("human", """Data Analysis:
+        ("human", """User Query:
+{user_query}
+
+Data Analysis:
 {data_analysis}
 
 News Analysis:
@@ -36,6 +41,7 @@ Please provide your risk assessment.""")
     
     chain = prompt | llm
     response = chain.invoke({
+        "user_query": state.get("query", "No specific query provided."),
         "data_analysis": state.get("data_analysis", "No data analysis provided."),
         "news_analysis": state.get("news_analysis", "No news analysis provided.")
     })
