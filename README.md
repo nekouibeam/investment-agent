@@ -83,7 +83,8 @@ graph TD
 
 ## 🏃‍♂️ Usage
 
-### 1. Command Line Interface (CLI)
+
+### Method 1. Command Line Interface (CLI)
 
 Run the assistant with a natural language query:
 
@@ -97,7 +98,18 @@ Or for a single ticker:
 uv run python -m src.main "Analyze TSLA"
 ```
 
-### 2. Web UI (Streamlit)
+### Method  2. UI
+#### 1. REST API (FastAPI)
+
+To run the backend API server:
+
+```bash
+uv run uvicorn src.api:app --reload
+```
+
+The API will be available at `http://localhost:8000`. You can access the interactive API docs at `http://localhost:8000/docs`.
+
+#### 2. Web UI (Streamlit)
 
 For an interactive experience, launch the Streamlit web interface:
 
@@ -107,15 +119,6 @@ uv run streamlit run ui.py
 
 This will open the UI in your browser (typically at `http://localhost:8501`).
 
-### 3. REST API (FastAPI)
-
-To run the backend API server:
-
-```bash
-uv run uvicorn src.api:app --reload
-```
-
-The API will be available at `http://localhost:8000`. You can access the interactive API docs at `http://localhost:8000/docs`.
 
 ## 📂 Project Structure
 

@@ -12,7 +12,7 @@ def get_llm(temperature=0):
 
     if provider == "google":
         if not model_name:
-            model_name = "gemini-1.5-pro"
+            model_name = "gemini-2.5-flash"
         return ChatGoogleGenerativeAI(model=model_name, temperature=temperature)
     
     elif provider == "openai":

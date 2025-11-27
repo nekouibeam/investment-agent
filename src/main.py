@@ -14,11 +14,26 @@ def main():
     """
     Main entry point for the Investment Research Assistant.
     """
-    # Check for OpenAI API Key
-    if not os.getenv("OPENAI_API_KEY"):
-        print("Error: OPENAI_API_KEY not found in environment variables.")
-        print("Please create a .env file with your API key.")
-        return
+    # Check for API Keys based on provider
+    provider = os.getenv("LLM_PROVIDER", "openai").lower()
+
+    if provider == "google":
+        if not os.getenv("GOOGLE_API_KEY"):
+            print("Error: GOOGLE_API_KEY not found in environment variables.")
+            print("Please create a .env file with your GOOGLE_API_KEY.")
+            return
+    elif provider == "openai":
+        if not os.getenv("OPENAI_API_KEY"):
+            print("Error: OPENAI_API_KEY not found in environment variables.")
+            print("Please create a .env file with your OPENAI_API_KEY.")
+            return
+    else:
+        # Fallback or warning for unknown provider
+        print(f"Warning: Unknown LLM_PROVIDER '{provider}'. Checking for OPENAI_API_KEY by default.")
+        if not os.getenv("OPENAI_API_KEY"):
+            print("Error: OPENAI_API_KEY not found.")
+            return
+
 
     print("----------------------------------------------------------------")
     print("   Multi-Agent Investment Research Assistant (LangGraph)   ")

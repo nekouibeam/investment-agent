@@ -1,4 +1,4 @@
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
 from ..state import AgentState
 from ..tools.finance_tools import get_stock_data
 from ..utils import get_llm
@@ -27,10 +27,10 @@ def data_analyst_node(state: AgentState):
     """
     
     # Create the agent
-    agent = create_react_agent(
+    agent = create_agent(
         model=llm,
         tools=tools,
-        state_modifier=system_prompt
+        system_prompt=system_prompt
     )
     
     tickers = state["tickers"]
